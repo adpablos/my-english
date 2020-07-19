@@ -3,7 +3,8 @@
 require('dotenv').config({ path: './variables.env' });
 
 const connectToDatabase = require('./db');
-const Note = require('./models/Word');
+const Word = require('./models/Word');
+const wr = require('wordreference-api');
 
 module.exports.create = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
@@ -93,4 +94,17 @@ module.exports.delete = (event, context, callback) => {
           body: 'Could not fetch the words.'
         }));
     });
+};
+
+module.exports.wrSearch = (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+
+    connectToDatabase()
+        .then(() => {
+            let body = JSON.parse(event.body);
+            wr(body.word,body.from,body.to).then((result)=> callback(null, {
+                statusCode: 200,
+                body: JSON.stringify({ message: 'Translation of ' + body.word + ' from ' + body.from + ' to ' + body.to, result: result })
+            }));
+        });
 };

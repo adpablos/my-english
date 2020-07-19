@@ -65,6 +65,13 @@ functions: # add 4 functions for CRUD
          path: words/{id} # path will be domain.name.com/dev/words/1
          method: delete
          cors: true
+  wr-search:
+    handler: handler.wrSearch # point to exported wrSearch function in handler.js
+    events:
+      - http:
+          path: wr-search # path will be domain.name.com/dev/wr-search
+          method: post
+          cors: true
 
 plugins:
 - serverless-offline # adding the plugin to be able to run the offline emulation
