@@ -11,5 +11,8 @@
   "devDependencies": {
     "serverless-offline": "^6.5.0",
     "wordreference-api": "1.1.0"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
   }
 }
