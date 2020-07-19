@@ -13,6 +13,7 @@
     "wordreference-api": "1.1.0"
   },
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.9.25"
   }
 }
