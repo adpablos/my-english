@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "serverless-offline": "^6.5.0"
+    "serverless-offline": "^6.5.0",
+    "wordreference-api": "1.1.0"
   }
 }
