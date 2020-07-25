@@ -1,0 +1,56 @@
+# Serverless yml file containing functions for word resource
+# function/word/serverless.yml
+create:
+  handler: handler.create # point to exported create function in handler.js
+  events:
+    - http:
+        path: words # path will be domain.name.com/dev/words
+        method: post
+        cors: true
+  environment:
+    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
+getOne:
+  handler: handler.getOne
+  events:
+    - http:
+        path: words/{id} # path will be domain.name.com/dev/words/1
+        method: get
+        cors: true
+  environment:
+    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
+getAll:
+  handler: handler.getAll # path will be domain.name.com/dev/words
+  events:
+    - http:
+        path: words
+        method: get
+        cors: true
+  environment:
+    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
+update:
+  handler: handler.update # path will be domain.name.com/dev/words/1
+  events:
+    - http:
+        path: words/{id}
+        method: put
+        cors: true
+  environment:
+    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
+delete:
+  handler: handler.delete
+  events:
+    - http:
+        path: words/{id} # path will be domain.name.com/dev/words/1
+        method: delete
+        cors: true
+  environment:
+    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
+wr-search:
+  handler: handler.wrSearch # point to exported wrSearch function in handler.js
+  events:
+    - http:
+        path: wr-search # path will be domain.name.com/dev/wr-search
+        method: post
+        cors: true
+  environment:
+    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js

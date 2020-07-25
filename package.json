@@ -2,7 +2,6 @@
   "name": "my-english",
   "version": "1.0.0",
   "description": "",
-  "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +12,6 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "mongoose": "^5.9.25",
-    "wordreference-api": "1.1.0"
+    "mongoose": "^5.9.25"
   }
 }
