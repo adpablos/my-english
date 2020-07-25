@@ -37,6 +37,8 @@ functions: # add 4 functions for CRUD
           path: words # path will be domain.name.com/dev/words
           method: post
           cors: true
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
   getOne:
     handler: handler.getOne
     events:
@@ -44,6 +46,8 @@ functions: # add 4 functions for CRUD
           path: words/{id} # path will be domain.name.com/dev/words/1
           method: get
           cors: true
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
   getAll:
     handler: handler.getAll # path will be domain.name.com/dev/words
     events:
@@ -51,6 +55,8 @@ functions: # add 4 functions for CRUD
          path: words
          method: get
          cors: true
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
   update:
     handler: handler.update # path will be domain.name.com/dev/words/1
     events:
@@ -58,6 +64,8 @@ functions: # add 4 functions for CRUD
          path: words/{id}
          method: put
          cors: true
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
   delete:
     handler: handler.delete
     events:
@@ -65,6 +73,8 @@ functions: # add 4 functions for CRUD
          path: words/{id} # path will be domain.name.com/dev/words/1
          method: delete
          cors: true
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
   wr-search:
     handler: handler.wrSearch # point to exported wrSearch function in handler.js
     events:
@@ -72,6 +82,8 @@ functions: # add 4 functions for CRUD
           path: wr-search # path will be domain.name.com/dev/wr-search
           method: post
           cors: true
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
 
 plugins:
 - serverless-offline # adding the plugin to be able to run the offline emulation
