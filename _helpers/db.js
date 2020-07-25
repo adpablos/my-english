@@ -21,8 +21,8 @@ module.exports = connectToDatabase = () => {
   };
 
   console.log('=> using new database connection');
-  console.log('=> url: ' + process.env.DB);
-  return mongoose.connect(encodeURI(process.env.DB), options)
+  console.log('=> url: ' + process.env.MONGODB_URI);
+  return mongoose.connect(encodeURI(process.env.MONGODB_URI), options)
     .then(db => { 
       isConnected = db.connections[0].readyState;
     });

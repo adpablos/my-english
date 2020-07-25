@@ -2,7 +2,6 @@
   "name": "my-english",
   "version": "1.0.0",
   "description": "",
-  "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,8 +11,14 @@
     "serverless-offline": "^6.5.0"
   },
   "dependencies": {
+    "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
+    "express-jwt": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwk-to-pem": "^2.0.4",
+    "jwks-rsa": "^1.8.1",
     "mongoose": "^5.9.25",
-    "wordreference-api": "1.1.0"
+    "request": "^2.82.0"
   }
 }
