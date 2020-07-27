@@ -1,8 +1,8 @@
-const config = require('config.json');
+const config = require('../config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const db = require('_helpers/db');
-const User = db.User;
+
+const User = require('../models/User');
 
 module.exports = {
     authenticate,
@@ -21,6 +21,11 @@ async function authenticate({ username, password }) {
             ...user.toJSON(),
             token
         };
+    } else{
+        const err = new Error();
+        err.message = 'Username or password is incorrect';
+        err.statusCode = 401;
+        throw err;
     }
 }
 
@@ -33,20 +38,24 @@ async function getById(id) {
 }
 
 async function create(userParam) {
+    console.log("userParam.username:" + userParam.username);
     // validate
-    if (await User.findOne({ username: userParam.username })) {
-        throw 'Username "' + userParam.username + '" is already taken';
+    if(await User.findOne({ username: userParam.username })){
+        const err = new Error();
+        err.message = 'Username "' + userParam.username + '" is already taken';
+        err.statusCode = 409;
+        throw err;
     }
-
-    const user = new User(userParam);
 
     // hash password
     if (userParam.password) {
-        user.hash = bcrypt.hashSync(userParam.password, 10);
+        console.log("hashing password");
+        userParam.hash = bcrypt.hashSync(userParam.password, 10);
     }
 
+    console.log("Creating user");
     // save user
-    await user.save();
+    return User.create(userParam);
 }
 
 async function update(id, userParam) {
