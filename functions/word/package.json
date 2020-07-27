@@ -1,5 +1,5 @@
 {
-  "main": "handler.js",
+  "main": "word-handler.js",
   "dependencies": {
     "wordreference-api": "1.1.0"
   }

@@ -1,56 +1,67 @@
 # Serverless yml file containing functions for user resource
 # function/user/serverless.yml
-userAuthenticate:
-  handler: handler.userAuthenticate # point to exported create function in handler.js
-  events:
-    - http:
-        path: authenticate # path will be domain.name.com/dev/users
-        method: post
-        cors: true
-  environment:
-    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
-userCreate:
-  handler: handler.userCreate # point to exported create function in handler.js
-  events:
-    - http:
-        path: users # path will be domain.name.com/dev/users
-        method: post
-        cors: true
-  environment:
-    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
-userGetById:
-  handler: handler.userGetById
-  events:
-    - http:
-        path: users/{id} # path will be domain.name.com/dev/users/1
-        method: get
-        cors: true
-  environment:
-    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
-userGetAll:
-  handler: handler.userGetAll # path will be domain.name.com/dev/users
-  events:
-    - http:
-        path: users
-        method: get
-        cors: true
-  environment:
-    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
-userUpdate:
-  handler: handler.userUpdate # path will be domain.name.com/dev/users/1
-  events:
-    - http:
-        path: users/{id}
-        method: put
-        cors: true
-  environment:
-    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
-userDelete:
-  handler: handler.userDelete
-  events:
-    - http:
-        path: users/{id} # path will be domain.name.com/dev/users/1
-        method: delete
-        cors: true
-  environment:
-    BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
+  auth:
+    handler: _helpers/auth.authorize
+  userAuthenticate:
+    handler: functions/user/user-handler.userAuthenticate # point to exported create function in word-user-handler.js
+    events:
+      - http:
+          path: authenticate # path will be domain.name.com/dev/users
+          method: post
+          cors: true
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
+  userCreate:
+    handler: functions/user/user-handler.userCreate # point to exported create function in word-user-handler.js
+    events:
+      - http:
+          path: users # path will be domain.name.com/dev/users
+          method: post
+          cors: true
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
+  userGetById:
+    handler: functions/user/user-handler.userGetById
+    events:
+      - http:
+          path: users/{id} # path will be domain.name.com/dev/users/1
+          method: get
+          authorizer: auth
+          cors:
+            origins:
+              - '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
+  userGetAll:
+    handler: functions/user/user-handler.userGetAll # path will be domain.name.com/dev/users
+    events:
+      - http:
+          path: users
+          method: get
+          cors: true
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
+  userUpdate:
+    handler: functions/user/user-handler.userUpdate # path will be domain.name.com/dev/users/1
+    events:
+      - http:
+          path: users/{id}
+          method: put
+          cors: true
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
+  userDelete:
+    handler: functions/user/user-handler.userDelete
+    events:
+      - http:
+          path: users/{id} # path will be domain.name.com/dev/users/1
+          method: delete
+          cors: true
+    environment:
+      BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js

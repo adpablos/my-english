@@ -1,5 +1,5 @@
 {
-  "main": "handler.js",
+  "main": "user-handler.js",
   "dependencies": {
     "express-jwt": "^6.0.0",
     "jsonwebtoken": "^8.5.1",

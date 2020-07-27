@@ -1,6 +1,14 @@
-const config = require('config.json');
 const mongoose = require('mongoose');
-const connectionOptions = {
+mongoose.Promise = global.Promise;
+let isConnected;
+
+module.exports = connectToDatabase = () => {
+  if (isConnected) {
+    console.log('=> using existing database connection');
+    return Promise.resolve();
+  }
+
+  const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -10,10 +18,12 @@ const connectionOptions = {
     serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
     socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
     family: 4 // Use IPv4, skip trying IPv6
-};
-mongoose.connect(encodeURI(process.env.MONGODB_URI || config.connectionString), connectionOptions);
-mongoose.Promise = global.Promise;
+  };
 
-module.exports = {
-    User: require('../models/user.js')
+  console.log('=> using new database connection');
+  console.log('=> url: ' + process.env.MONGODB_URI);
+  return mongoose.connect(encodeURI(process.env.MONGODB_URI), options)
+    .then(db => { 
+      isConnected = db.connections[0].readyState;
+    });
 };

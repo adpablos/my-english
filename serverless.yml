@@ -29,7 +29,7 @@ provider:
   stage: dev # setting the env stage to dev, this will be visible in the routes
   region: us-east-1
 
-functions: # add 4 functions for CRUD
+functions:
   - ${file(./functions/word/serverless.yml)}
   - ${file(./functions/user/serverless.yml)}
 

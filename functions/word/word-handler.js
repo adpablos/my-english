@@ -1,8 +1,8 @@
 'use strict';
 
-require('dotenv').config({path: '../../variables.env'});
+require('dotenv').config({path: 'variables.env'});
 
-const connectToDatabase = require('../../db');
+const connectToDatabase = require('../../_helpers/db');
 const Word = require('../../models/Word');
 const wr = require('wordreference-api');
 
