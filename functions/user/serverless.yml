@@ -1,5 +1,7 @@
 # Serverless yml file containing functions for user resource
 # function/user/serverless.yml
+  auth:
+    handler: _helpers/auth.authorize
   userAuthenticate:
     handler: functions/user/user-handler.userAuthenticate # point to exported create function in word-user-handler.js
     events:
@@ -24,7 +26,16 @@
       - http:
           path: users/{id} # path will be domain.name.com/dev/users/1
           method: get
-          cors: true
+          authorizer: auth
+          cors:
+            origins:
+              - '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
     environment:
       BABEL_CACHE_PATH: /tmp/my-cache.json babel-node script.js
   userGetAll:

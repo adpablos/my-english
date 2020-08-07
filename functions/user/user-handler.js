@@ -3,7 +3,6 @@
 require('dotenv').config({path: './variables.env'});
 const userService = require('../../service/user.service');
 const connectToDatabase = require('../../_helpers/db');
-const lambdaAuth = require('../../_helpers/lambda-authorizer-jwt');
 
 module.exports.userAuthenticate = (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
@@ -50,9 +49,6 @@ module.exports.userCreate = (event, context, callback) => {
 }
 
 module.exports.userGetAll = (event, context, callback) => {
-    let token = lambdaAuth.extractTokenFromHeader(event) || '';
-    console.log("Token:" + token);
-    lambdaAuth.validateToken(token, callback);
     context.callbackWaitsForEmptyEventLoop = false;
     connectToDatabase()
         .then(() => {
